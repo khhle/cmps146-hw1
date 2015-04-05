@@ -11,6 +11,8 @@ def dijkstras_shortest_path(src, dst, graph, adj):
 	Dist[src] = 0
 	queue = [(0,src)]
 	
+	found = False
+	
 	#while queue is not empty. If it's empty we've searched all valid points
 	while(queue):
 		curr = heappop(queue)
@@ -27,8 +29,21 @@ def dijkstras_shortest_path(src, dst, graph, adj):
 					Prev[nextCells[i][1]] = curr[1]
 					#push onto the queue
 					heappush(queue, nextCells[i])
+					if nextCells[i][1] == dst:
+						found = True
+						break
+		if found:
+			break
 			
-		
+	if found:
+		path = []
+		curr = Prev[dst]
+		while curr != src:
+			path.append(curr)
+			curr = Prev[curr]
+		return path
+			
+			
 		
 		
 
